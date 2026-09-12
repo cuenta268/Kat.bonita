@@ -1,0 +1,23 @@
+MUSEO "PARA MI NIÑA" ❤️
+
+Archivos:
+- index.html
+- style.css
+- script.js
+- assets/musica.mp3 (debes colocar aquí el archivo de la canción)
+
+La canción elegida anteriormente fue:
+"Tú y Yo" — La Misma Gente
+
+IMPORTANTE:
+Por derechos de autor no puedo incluir dentro del ZIP una copia del MP3 de una canción comercial. El sitio ya está preparado para reproducirla como archivo local.
+
+En Acode:
+1. Extrae el ZIP.
+2. Abre la carpeta "Para_mi_nina_museo".
+3. Abre index.html.
+4. Para tener la música dentro de la página, coloca tu archivo de audio en:
+   assets/musica.mp3
+5. Si el navegador bloquea la reproducción automática, toca el botón ▶ de música.
+
+No cambies los nombres de los archivos.
