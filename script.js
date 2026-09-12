@@ -1,139 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================================
-    // BOTÓN DE ENTRADA
-    // ==========================================
+    const intro = document.getElementById("intro");
+    const enterButton = document.getElementById("enterButton");
+    const museum = document.getElementById("museum");
 
-    const botones = document.querySelectorAll("button, a, .btn, .button");
+    // Mostrar el museo al presionar "Entrar a nuestro museo"
+    if (enterButton) {
+        enterButton.addEventListener("click", function () {
 
-    botones.forEach((boton) => {
+            intro.classList.add("hidden");
+            museum.classList.remove("hidden");
 
-        const texto = boton.textContent.trim().toLowerCase();
-
-        if (
-            texto.includes("entrar") ||
-            texto.includes("ingresar") ||
-            texto.includes("comenzar") ||
-            texto.includes("abrir") ||
-            texto.includes("entrar al museo")
-        ) {
-
-            boton.addEventListener("click", function (e) {
-                e.preventDefault();
-
-                // Buscar posibles pantallas de bienvenida
-                const inicio =
-                    document.querySelector("#inicio") ||
-                    document.querySelector(".inicio") ||
-                    document.querySelector("#welcome") ||
-                    document.querySelector(".welcome") ||
-                    document.querySelector("#bienvenida") ||
-                    document.querySelector(".bienvenida");
-
-                // Buscar posibles pantallas principales
-                const principal =
-                    document.querySelector("#museo") ||
-                    document.querySelector(".museo") ||
-                    document.querySelector("#principal") ||
-                    document.querySelector(".principal") ||
-                    document.querySelector("#contenido") ||
-                    document.querySelector(".contenido") ||
-                    document.querySelector("main");
-
-                // Ocultar la bienvenida
-                if (inicio) {
-                    inicio.style.display = "none";
-                }
-
-                // Mostrar el contenido
-                if (principal) {
-                    principal.style.display = "block";
-                }
-
-                // Si no encuentra secciones específicas,
-                // intenta ocultar el elemento padre del botón.
-                if (!inicio && principal === null) {
-
-                    let elemento = boton.parentElement;
-
-                    if (elemento) {
-                        elemento.style.display = "none";
-                    }
-
-                    // Mostrar elementos que estaban ocultos
-                    document.querySelectorAll(
-                        "[style*='display: none'], .hidden, .oculto"
-                    ).forEach((elemento) => {
-                        elemento.style.display = "";
-                    });
-                }
-
-                // Llevar la pantalla hacia el contenido
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
+            // Llevar al inicio del museo
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
             });
+        });
+    }
 
-        }
+    // Botón "Volver al inicio"
+    const restartButton = document.getElementById("restartButton");
 
-    });
+    if (restartButton) {
+        restartButton.addEventListener("click", function () {
 
+            museum.classList.add("hidden");
+            intro.classList.remove("hidden");
 
-    // ==========================================
-    // BOTONES CON data-target
-    // ==========================================
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    }
 
-    document.querySelectorAll("[data-target]").forEach((boton) => {
+    // Botón de música
+    // Se mantiene por compatibilidad con tu HTML,
+    // pero no hace nada si no existe el audio.
+    const musicButton = document.getElementById("musicButton");
+    const localMusic = document.getElementById("localMusic");
 
-        boton.addEventListener("click", function (e) {
+    if (musicButton && localMusic) {
 
-            e.preventDefault();
+        musicButton.addEventListener("click", function () {
 
-            const destino = this.getAttribute("data-target");
-            const elemento = document.querySelector(destino);
-
-            if (elemento) {
-                elemento.style.display = "block";
-
-                elemento.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
+            if (localMusic.paused) {
+                localMusic.play().catch(function () {
+                    console.log("No se pudo reproducir el audio.");
                 });
+
+                musicButton.setAttribute(
+                    "aria-label",
+                    "Pausar música"
+                );
+
+            } else {
+                localMusic.pause();
+
+                musicButton.setAttribute(
+                    "aria-label",
+                    "Reproducir música"
+                );
             }
 
         });
 
-    });
-
-
-    // ==========================================
-    // ENLACES INTERNOS
-    // ==========================================
-
-    document.querySelectorAll("a[href^='#']").forEach((enlace) => {
-
-        enlace.addEventListener("click", function (e) {
-
-            const destino = this.getAttribute("href");
-
-            if (destino && destino !== "#") {
-
-                const elemento = document.querySelector(destino);
-
-                if (elemento) {
-                    e.preventDefault();
-
-                    elemento.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-                }
-
-            }
-
-        });
-
-    });
+    }
 
 });
